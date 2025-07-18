@@ -23,26 +23,59 @@ const pAequorFactory = (specimenNum, dna) => {
       let baseIndex = Math.floor(Math.random() * this._dna.length);
       let replacementBase = ''; 
 
-      console.log(`Original base ${this._dna[baseIndex]}`);
       do{
         replacementBase = returnRandBase();
       }while(replacementBase === this._dna[baseIndex]);
-      console.log(replacementBase); 
 
      this._dna[baseIndex] = replacementBase; 
-     console.log(`Replaced base ${this._dna[baseIndex]}`); 
      return this._dna; 
+    },
+    compareDNA(specimen) {
+      const { _specimenNum, _dna } = specimen;
+      let comparedDNA = [];
+      
+      for(let i = 0; i < this._dna.length; i++){
+        if(this._dna[i] === _dna[i]) {
+         comparedDNA.push(this._dna[i]);
+        }
+      }
+
+      //number of identical bases in both arrays
+      let identicalBases = comparedDNA.length
+      console.log(`identicalBases variable: ${identicalBases}`); 
+      //percentage of shared DNA
+      let percentageOfCommonDNa = Math.round((identicalBases/_dna.length) * 100); 
+      
+      console.log(`Specimen ${this._specimenNum} and Specimen ${_specimenNum} have ${percentageOfCommonDNa}% DNA in common.`)
+
+    },
+    willLikelySurvive() {
+      let CandGinstances = this._dna.filter(base => base === 'C' || base === 'G');
+      let percentageOfInstances =  Math.round((CandGinstances.length/this._dna.length) * 100); 
+      
+      let results = percentageOfInstances >= 60;
+
+      return results; 
     },
 
   };
   
   return pAequor; 
-}
+};
 
-const monsterOne = pAequorFactory(125, mockUpStrand()); 
-console.log(monsterOne);
-monsterOne.mutate(); 
-console.log(monsterOne)
+const multipAequorGenerator = (num) => {
+
+  let arr = [];
+
+  for(let i = 0; i < num; i++){
+    arr.push(pAequorFactory(i,mockUpStrand()))
+  };
+  return arr
+
+};
+
+let createInstances =  multipAequorGenerator(30);
+console.log(createInstances);
 
 /*
 
