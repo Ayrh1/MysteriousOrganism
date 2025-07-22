@@ -84,16 +84,22 @@ const multipAequorGenerator = (num) => {
   let arr = [];
 
   for(let i = 0; i < num; i++){
-    arr.push(pAequorFactory(i,mockUpStrand()))
+    let newSpecimen = pAequorFactory(i,mockUpStrand());
+    if(newSpecimen.willLikelySurvive()){
+      arr.push(newSpecimen)
+    } else {
+      i--; 
+    }
+    
   };
   return arr
 
 };
 
-/*
+
 let createInstances =  multipAequorGenerator(30);
 console.log(createInstances);
-*/
+
 
 let mutantOne = pAequorFactory(12, mockUpStrand())
 console.log(mutantOne); 
