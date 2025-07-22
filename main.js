@@ -57,7 +57,23 @@ const pAequorFactory = (specimenNum, dna) => {
 
       return results; 
     },
+    complementStrand() {
+      
+      let complementStrand = this._dna.map(base => {
+        if(base === 'A'){
+          return 'T';
+        }else if(base === 'T'){
+          return 'A';
+        }else if(base === 'C'){
+          return 'G';
+        } else {
+          return 'C'; 
+        }
+      });
 
+      return complementStrand; 
+
+    },
   };
   
   return pAequor; 
@@ -74,8 +90,14 @@ const multipAequorGenerator = (num) => {
 
 };
 
+/*
 let createInstances =  multipAequorGenerator(30);
 console.log(createInstances);
+*/
+
+let mutantOne = pAequorFactory(12, mockUpStrand())
+console.log(mutantOne); 
+console.log(mutantOne.complementStrand()); 
 
 /*
 
